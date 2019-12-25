@@ -1,0 +1,10 @@
+type MeetingRoom {
+    id: ID!,
+    name: String,
+    size: Int
+}
+
+type Query {
+    meetingRooms(pageNo:Int, pageSize:Int):[MeetingRoom]
+    meetingRoom(id:ID):MeetingRoom
+}
