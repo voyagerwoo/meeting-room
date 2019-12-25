@@ -1,4 +1,4 @@
-type MeetingRoom {
+type MeetingRoomData {
     id: ID!,
     name: String,
     size: Int
@@ -18,7 +18,6 @@ type ReservationData {
 }
 
 type Query {
-    meetingRooms(pageNo:Int, pageSize:Int):[MeetingRoom]
-    meetingRoom(id:ID):MeetingRoom
     findReservationsByStartTimeBetween(startDate:String, endDate:String):[ReservationData]
+    findAvailableMeetingRoom(startTime: String, endTime: String): [MeetingRoomData]
 }

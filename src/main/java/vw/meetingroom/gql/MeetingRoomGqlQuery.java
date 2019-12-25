@@ -1,37 +1,35 @@
 package vw.meetingroom.gql;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
-import vw.meetingroom.domain.MeetingRoom;
-import vw.meetingroom.query.MeetingRoomDao;
+import vw.meetingroom.query.MeetingRoomData;
 import vw.meetingroom.query.ReservationData;
+import vw.meetingroom.query.mapper.MeetingRoomDataDao;
 import vw.meetingroom.query.mapper.ReservationDataDao;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class MeetingRoomGqlQuery implements GraphQLQueryResolver {
-    private final MeetingRoomDao meetingRoomDao;
     private final ReservationDataDao reservationDataDao;
+    private final MeetingRoomDataDao meetingRoomDataDao;
 
-    public MeetingRoomGqlQuery(MeetingRoomDao meetingRoomDao, ReservationDataDao reservationDataDao) {
-        this.meetingRoomDao = meetingRoomDao;
+    public MeetingRoomGqlQuery(ReservationDataDao reservationDataDao, MeetingRoomDataDao meetingRoomDataDao) {
         this.reservationDataDao = reservationDataDao;
+        this.meetingRoomDataDao = meetingRoomDataDao;
     }
 
-    public List<MeetingRoom> getMeetingRooms(int pageNo, int pageSize) {
-        return meetingRoomDao.findAll(PageRequest.of(pageNo, pageSize))
-                .getContent();
+    public List<ReservationData> findReservationsByStartTimeBetween(String startDate, String endDate) {
+        return reservationDataDao.findByStartTimeBetween(LocalDate.parse(startDate), LocalDate.parse(endDate));
     }
 
-    public Optional<MeetingRoom> getMeetingRoom(long id) {
-        return meetingRoomDao.findById(id);
-    }
-
-    public List<ReservationData> findReservationsByStartTimeBetween(String startTime, String endTime) {
-        return reservationDataDao.findByStartTimeBetween(LocalDate.parse(startTime), LocalDate.parse(endTime));
+    public List<MeetingRoomData> findAvailableMeetingRoom(String startTime, String endTime) {
+        return meetingRoomDataDao.findAvailableMeetingRoom(
+                LocalDateTime.parse(startTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+                LocalDateTime.parse(endTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+        );
     }
 }

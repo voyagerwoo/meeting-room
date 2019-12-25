@@ -1,10 +1,10 @@
-package vw.meetingroom.query;
+package vw.meetingroom.query.mapper;
 
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa;
-import vw.meetingroom.query.mapper.ReservationDataDao;
+import vw.meetingroom.query.ReservationData;
 
 import javax.sql.DataSource;
 import java.time.LocalDate;

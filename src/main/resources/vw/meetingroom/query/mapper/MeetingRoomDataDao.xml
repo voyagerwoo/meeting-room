@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="vw.meetingroom.query.mapper.MeetingRoomDataDao">
+
+    <select id="findAvailableMeetingRoom" resultType="vw.meetingroom.query.MeetingRoomData">
+        select m.id, m.name, m.size
+        from meeting_room m
+        where id not in (select distinct em.id
+            from meeting_room em
+            inner join reservation r on r.meeting_room_id = em.id
+            where (r.start_time between #{startTime} and #{endTime} or r.end_time between #{startTime} and #{endTime}))
+    </select>
+</mapper>

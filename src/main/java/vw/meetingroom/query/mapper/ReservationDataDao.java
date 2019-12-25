@@ -14,4 +14,5 @@ public interface ReservationDataDao {
 
     List<ReservationData> findByStartTimeBetween(@Param("startDate") LocalDate startDate,
                                                  @Param("endDate") LocalDate endDate);
+
 }
