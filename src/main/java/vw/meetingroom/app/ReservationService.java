@@ -1,5 +1,6 @@
 package vw.meetingroom.app;
 
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import vw.meetingroom.app.exceptions.AlreadyReservedException;
 import vw.meetingroom.app.exceptions.IllegalTimeRangeException;
@@ -27,6 +28,7 @@ public class ReservationService {
     }
 
     @Transactional
+    @CacheEvict(value = "findReservationsByStartTimeBetween", allEntries = true)
     public Reservation reserve(long userId, long meetingRoomId, LocalDateTime startTime, LocalDateTime endTime) {
         userRepository.findById(userId).orElseThrow(() -> new InvalidUserIdException(userId));
         meetingRoomRepository.findById(meetingRoomId).orElseThrow(() -> new InvalidMeetingRoomIdException(meetingRoomId));

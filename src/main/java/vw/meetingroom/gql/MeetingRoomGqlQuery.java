@@ -1,6 +1,7 @@
 package vw.meetingroom.gql;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import vw.meetingroom.query.MeetingRoomData;
 import vw.meetingroom.query.ReservationData;
@@ -22,6 +23,7 @@ public class MeetingRoomGqlQuery implements GraphQLQueryResolver {
         this.meetingRoomDataDao = meetingRoomDataDao;
     }
 
+    @Cacheable(value = "findReservationsByStartTimeBetween")
     public List<ReservationData> findReservationsByStartTimeBetween(String startDate, String endDate) {
         return reservationDataDao.findByStartTimeBetween(LocalDate.parse(startDate), LocalDate.parse(endDate));
     }
