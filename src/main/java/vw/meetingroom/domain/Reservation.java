@@ -18,14 +18,21 @@ public class Reservation {
     private Long id;
 
     @Column(name = "user_id")
-    private Long userId;
+    private long userId;
 
     @Column(name = "meeting_room_id")
-    private Long meetingRoomId;
+    private long meetingRoomId;
 
     @Column(name = "start_time")
     private LocalDateTime startTime;
 
     @Column(name = "end_time")
     private LocalDateTime endTime;
+
+    public Reservation(Long userId, Long meetingRoomId, LocalDateTime startTime, LocalDateTime endTime) {
+        this.userId = userId;
+        this.meetingRoomId = meetingRoomId;
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
 }

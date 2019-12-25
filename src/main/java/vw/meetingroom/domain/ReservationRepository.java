@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface ReservationRepository extends Repository<Reservation, Long> {
     Optional<Reservation> findById(Long id);
-    Reservation save(Reservation user);
+    Reservation save(Reservation reservation);
 
     @Query("select r from Reservation as r " +
             "where r.meetingRoomId = :meetingRoomId " +

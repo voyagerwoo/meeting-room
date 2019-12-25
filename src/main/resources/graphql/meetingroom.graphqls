@@ -4,6 +4,13 @@ type MeetingRoomData {
     size: Int
 }
 
+type Reservation {
+    id: ID!,
+    userId: Int,
+    meetingRoomId: Int,
+    startTime: String,
+    endTime: String
+}
 
 type ReservationData {
     id: ID!,
@@ -20,4 +27,8 @@ type ReservationData {
 type Query {
     findReservationsByStartTimeBetween(startDate:String, endDate:String):[ReservationData]
     findAvailableMeetingRoom(startTime: String, endTime: String): [MeetingRoomData]
+}
+
+type Mutation {
+    reserve(userId: Int, meetingRoomId: Int, startTime: String, endTime: String): Reservation
 }

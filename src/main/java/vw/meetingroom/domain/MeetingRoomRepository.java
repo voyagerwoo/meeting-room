@@ -6,5 +6,5 @@ import java.util.Optional;
 
 public interface MeetingRoomRepository extends Repository<MeetingRoom, Long> {
     Optional<MeetingRoom> findById(Long id);
-    MeetingRoom save(MeetingRoom user);
+    MeetingRoom save(MeetingRoom meetingRoom);
 }
