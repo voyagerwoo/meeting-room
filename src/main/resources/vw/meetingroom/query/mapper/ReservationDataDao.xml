@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="vw.meetingroom.query.mapper.ReservationDataDao">
+
+    <select id="findByStartTimeBetween" resultType="vw.meetingroom.query.ReservationData">
+        select r.id,
+            r.user_id,
+            u.name as user_name,
+            u.dept as user_dept,
+            r.meeting_room_id,
+            m.name as meeting_room_name,
+            m.size as meeting_room_size,
+            r.start_time,
+            r.end_time
+        from reservation r
+        inner join user u on r.user_id = u.id
+        inner join meeting_room m on r.meeting_room_id = m.id
+        where r.start_time between #{startDate} and #{endDate}
+    </select>
+</mapper>

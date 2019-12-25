@@ -1,11 +1,16 @@
 package vw.meetingroom.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
+import javax.persistence.*;
+
+@ToString
+@Getter
+@NoArgsConstructor
 @Entity
+@Table(name = "user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,5 +19,4 @@ public class User {
     private String name;
 
     private String dept;
-
 }

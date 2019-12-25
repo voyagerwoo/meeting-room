@@ -4,7 +4,21 @@ type MeetingRoom {
     size: Int
 }
 
+
+type ReservationData {
+    id: ID!,
+    userId: Int,
+    userName: String,
+    userDept: String,
+    meetingRoomId: Int,
+    meetingRoomName: String,
+    meetingRoomSize: String,
+    startTime: String,
+    endTime: String
+}
+
 type Query {
     meetingRooms(pageNo:Int, pageSize:Int):[MeetingRoom]
     meetingRoom(id:ID):MeetingRoom
+    findReservationsByStartTimeBetween(startDate:String, endDate:String):[ReservationData]
 }
