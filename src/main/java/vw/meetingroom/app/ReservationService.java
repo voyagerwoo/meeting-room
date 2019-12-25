@@ -2,6 +2,7 @@ package vw.meetingroom.app;
 
 import org.springframework.stereotype.Service;
 import vw.meetingroom.app.exceptions.AlreadyReservedException;
+import vw.meetingroom.app.exceptions.IllegalTimeRangeException;
 import vw.meetingroom.app.exceptions.InvalidMeetingRoomIdException;
 import vw.meetingroom.app.exceptions.InvalidUserIdException;
 import vw.meetingroom.domain.MeetingRoomRepository;
@@ -27,8 +28,11 @@ public class ReservationService {
 
     @Transactional
     public Reservation reserve(long userId, long meetingRoomId, LocalDateTime startTime, LocalDateTime endTime) {
-        userRepository.findById(userId).orElseThrow(InvalidUserIdException::new);
-        meetingRoomRepository.findById(meetingRoomId).orElseThrow(InvalidMeetingRoomIdException::new);
+        userRepository.findById(userId).orElseThrow(() -> new InvalidUserIdException(userId));
+        meetingRoomRepository.findById(meetingRoomId).orElseThrow(() -> new InvalidMeetingRoomIdException(meetingRoomId));
+        if (startTime.isAfter(endTime) || startTime.equals(endTime)) {
+            throw new IllegalTimeRangeException(startTime, endTime);
+        }
         List<Reservation> alreadyBookedReservation = reservationRepository.findAlreadyBookedReservation(meetingRoomId, startTime, endTime);
         if (!alreadyBookedReservation.isEmpty()) {
             throw new AlreadyReservedException();
