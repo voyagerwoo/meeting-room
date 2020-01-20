@@ -19,6 +19,14 @@
         <mybatis-spring-boot-starter.version>2.1.0</mybatis-spring-boot-starter.version>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>codeguru-profiler</id>
+            <name>codeguru-profiler</name>
+            <url>https://d1osg35nybn3tt.cloudfront.net</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -88,6 +96,17 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>codeguru-profiler-java-agent</artifactId>
+            <version>0.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>auth</artifactId>
+            <version>2.9.17</version>
+        </dependency>
+
     </dependencies>
 
     <build>
