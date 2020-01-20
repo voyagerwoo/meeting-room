@@ -12,7 +12,7 @@ public class MeetingRoomApplication {
 
     public static void main(String[] args) {
         Profiler systemProfiler =
-                Profiler.builder().profilingGroupName("codeguru-test")
+                Profiler.builder().profilingGroupName("meeting-room")
                         .awsCredentialsProvider(DefaultCredentialsProvider.create())
                         .build();
 
